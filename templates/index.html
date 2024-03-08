@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Expenses</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .divTable {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-bottom: 50px; /* Add margin between tables */
+        }
+
+        .row {
+            display: flex;
+            width: 110%;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .row:first-child {
+            font-weight: bold; 
+            border-top: 2px solid #dee2e6; /* Add top border to the first row */
+            border-bottom: 2px solid #1a1a1b;
+        }
+
+        .row:nth-last-child(2){
+            font-weight: bold; 
+            border-top: 2px solid #1a1a1b; /* Add top border to the first row */
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .cell {
+            flex: 1;
+            padding: 8px;
+            border-right: 1px solid #dee2e6;
+        }
+
+        .cell:first-child {
+            font-weight: bold; 
+            border-right: 2px solid #1a1a1b; /* Add left border to the first cell in each row */
+            border-left: 2px solid #dee2e6; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4 ml-5">
+        <h1 class="mb-4">Monthly Expenses</h1>
+        
+        <!-- Add a button to redirect to add_data.html -->
+        <a href="http://127.0.0.1:5000/add_data" class="btn btn-primary mb-3">Add Monthly Data</a>
+
+        {% for year, data in data.items() %}
+            <div class="divTable">
+                <!-- Categories Row -->
+                <div class="row">
+                    <div class="cell">{{year-1}}/{{year}}</div>
+                    <div class="cell">Income</div>
+                    <div class="cell">Tax</div>
+                    <div class="cell">Cash</div>
+                    <div class="cell">Home</div>
+                    <div class="cell">Desires</div>
+                    <div class="cell">Credit Card</div>
+                    <div class="cell">Investment</div>
+                    <div class="cell">Expenses</div>
+                    <div class="cell">Total Save</div>
+                    <div class="cell">Saving %</div>
+                </div>
+
+                <!-- Data Rows -->
+                {% for data_row in data %}
+                    <div class="row">
+                        <div class="cell">{{ data_row.month }}</div>
+                        <div class="cell">{{ data_row.Income }}</div>
+                        <div class="cell">{{ data_row.Tax }}</div>
+                        <div class="cell">{{ data_row.Cash }}</div>
+                        <div class="cell">{{ data_row.Home }}</div>
+                        <div class="cell">{{ data_row.Desires }}</div>
+                        <div class="cell">{{ data_row.Credit_Card }}</div>
+                        <div class="cell">{{ data_row.Investment }}</div>
+                        <div class="cell">{{ data_row.Expenses }}</div>
+                        <div class="cell">{{ data_row.Total_Save }}</div>
+                        <div class="cell">{{ data_row.Saving_Percentage }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
