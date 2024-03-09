@@ -27,8 +27,8 @@ async def add_data(
     category: str = Form(...),
     amount: int = Form(...),
 ):
-    addData.insertData(config_data, year, category, amount)
+    addData.insertData(config_data, year, month, category, amount)
     return templates.TemplateResponse("add_data.html", {"request": request})
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+# if __name__ == "__main__":
+#     uvicorn.run(app, host="127.0.0.1", port=8000)
