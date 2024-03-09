@@ -1,31 +1,34 @@
-from flask import Flask, render_template, request, redirect, url_for
-from pymongo import MongoClient
-from pymongo.server_api import ServerApi
-from controllers import addData,fetchData
-import json 
+from fastapi import FastAPI, Request, Form
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+from controllers import addData, fetchData
+import json
+import uvicorn
 
-app = Flask(__name__)
+app = FastAPI()
 
 with open('./config.json') as config_file:
     config_data = json.load(config_file)
 
-@app.route('/')
-def index():
+templates = Jinja2Templates(directory="templates")
+
+
+@app.get("/", response_class=HTMLResponse)
+async def read_root(request: Request):
     data = fetchData.getData(config_data)
-    return render_template('index.html', data=data)
+    return templates.TemplateResponse("index.html", {"request": request, "data": data})
 
-@app.route('/add_data', methods=['GET', 'POST'])
-def add_data():
-    if request.method == 'POST':
-        # Retrieve data from the form
-        year=request.form['year']
-        month = request.form['month']
-        category = request.form['category']
-        amount = int(request.form['amount'])
-        addData.insertData(config_data,year,category,amount)
-        return redirect('/')
 
-    return render_template('add_data.html')
+@app.post("/add_data", response_class=HTMLResponse)
+async def add_data(
+    request: Request,
+    year: str = Form(...),
+    month: str = Form(...),
+    category: str = Form(...),
+    amount: int = Form(...),
+):
+    addData.insertData(config_data, year, category, amount)
+    return templates.TemplateResponse("add_data.html", {"request": request})
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)
