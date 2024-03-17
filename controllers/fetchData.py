@@ -53,8 +53,10 @@ def getData(config_data):
 
     for year in all_years:
         # Execute aggregation pipeline
-        monthly_data = list(collection.aggregate(pipelines.getData(year)))
-        monthly_data_by_year[year] = monthly_data
-    print(monthly_data)
-    # data=formatData()
-    # return data
+        monthly_data = list(collection.aggregate(pipelines.getQuery(year)))
+        sorted_data = sorted(monthly_data, key=lambda x: x['created_at'],reverse=True)
+        # print(sorted_data)
+        monthly_data_by_year[year] = sorted_data
+    
+    data=formatData(monthly_data_by_year)
+    return data

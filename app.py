@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from fastapi.responses import RedirectResponse
 from controllers import addData, fetchData
 import json
 import uvicorn
@@ -18,16 +19,21 @@ async def read_root(request: Request):
     data = fetchData.getData(config_data)
     return templates.TemplateResponse("index.html", {"request": request, "data": data})
 
+@app.get("/add_data", response_class=HTMLResponse)
+async def add_data_form(request: Request):
+    return templates.TemplateResponse("add_data.html", {"request": request})
+
 
 @app.post("/add_data", response_class=HTMLResponse)
 async def add_data(
     request: Request,
-    year: str = Form(...),
+    year: int = Form(...),
     month: str = Form(...),
     category: str = Form(...),
     amount: int = Form(...),
+    description: str = Form(...)
 ):
-    addData.insertData(config_data, year, month, category, amount)
+    addData.insertData(config_data, year, month, category, amount, description)
     return templates.TemplateResponse("add_data.html", {"request": request})
 
 # if __name__ == "__main__":

@@ -1,4 +1,4 @@
-def getData(year):
+def getQuery(year):
     return [
         {
             "$sort": {
@@ -12,10 +12,10 @@ def getData(year):
         },
         {
             "$group": {
-                "_id": {"month": "$month", "year": "$year"},
-                "Income": {"$sum": {"$arrayElemAt": ["$Income.amount", 0]}},
-                "Tax": {"$sum": {"$arrayElemAt": ["$Tax.amount", 0]}},
-                "Cash": {"$sum": {"$arrayElemAt": ["$Cash.amount", 0]}},
+                "_id": {"month": "$month", "year": "$year", "created_at":"$created_at"},
+                "Income": {"$sum": {"$sum": "$Income.amount"}},
+                "Tax": {"$sum": {"$sum": "$Tax.amount"}},
+                "Cash": {"$sum": {"$sum": "$Cash.amount"}},
                 "Home": {"$sum": {"$sum": "$Home.amount"}},
                 "Desires": {"$sum": {"$sum": "$Desires.amount"}},
                 "Credit_Card": {"$sum": {"$sum": "$Credit_Card.amount"}},
@@ -34,7 +34,7 @@ def getData(year):
                 "Desires": 1,
                 "Credit_Card": 1,
                 "Investment": 1,
-                "created_at": 1
+                "created_at": "$_id.created_at"
             }
         },
         

@@ -9,14 +9,15 @@
 </head>
 <body>
     <div class="container mt-4">
+        
         <h1 class="mb-4">Add Monthly Data</h1>
-        <form method="post" action="http://localhost:5000/add_data">
+        <form method="post" action="http://localhost:8000/add_data">
             <div class="form-group">
                 <label for="year">Select year:</label>
                 <select class="form-control" id="year" name="year" required>
-                    <option value="2024">2024</option>
-                    <option value="2023">2023</option>
-                    <option value="2022">2022</option>
+                    <option value=2024>2024</option>
+                    <option value=2023>2023</option>
+                    <option value=2022>2022</option>
                 </select>
                 <label for="month">Select Month:</label>
                 <select class="form-control" id="month" name="month" required>
@@ -53,13 +54,44 @@
                 <label for="amount">Amount:</label>
                 <input type="number" class="form-control" id="amount" name="amount" required>
             </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <input type="text" class="form-control" id="description" name="description">
+            </div>
             <!-- Add other form fields as needed -->
             <button type="submit" class="btn btn-primary">Add Data</button>
-        </form>
+        </form>      
     </div>
+    <div class="container mb-4">
+        <hr>
+        <div class="row justify-content-end">
+            <div class="col-auto">
+                <a href="http://localhost:8000/" class="btn btn-primary mb-3">View Data</a>
+            </div>
+        </div>
+    </div>  
     <!-- Bootstrap JS and Popper.js -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Datepicker JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var today = new Date();
+            var currentMonth = today.getMonth();
+            var currentYear = today.getFullYear();
+            $('#month').val(getMonthName(currentMonth));
+            $('#year').val(currentYear);
+
+            function getMonthName(monthIndex) {
+                var monthNames = [
+                    "January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                ];
+                return monthNames[monthIndex];
+            }
+        });
+    </script>
 </body>
 </html>
