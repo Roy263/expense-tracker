@@ -16,7 +16,7 @@
 
         .row {
             display: flex;
-            width: 110%;
+            width: 130%;
             border-bottom: 1px solid #dee2e6;
         }
 
@@ -51,7 +51,7 @@
         <h1 class="mb-4">Monthly Expenses</h1>
         
         <!-- Add a button to redirect to add_data.html -->
-        <a href="http://13.201.125.194:8080/add_data" class="btn btn-primary mb-3">Add Monthly Data</a>
+        <a href="http://localhost:8080/add_data" class="btn btn-primary mb-3">Add Monthly Data</a>
 
         {% for year, data in data.items() %}
             <div class="divTable">
@@ -63,6 +63,8 @@
                     <div class="cell">Cash</div>
                     <div class="cell">Home</div>
                     <div class="cell">Desires</div>
+                    <div class="cell">Travel</div>
+                    <div class="cell">Food</div>
                     <div class="cell">Credit Card</div>
                     <div class="cell">Investment</div>
                     <div class="cell">Expenses</div>
@@ -79,6 +81,8 @@
                         <div class="cell">{{ data_row.Cash }}</div>
                         <div class="cell">{{ data_row.Home }}</div>
                         <div class="cell">{{ data_row.Desires }}</div>
+                        <div class="cell">{{ data_row.Travel }}</div>
+                        <div class="cell">{{ data_row.Food }}</div>
                         <div class="cell">{{ data_row.Credit_Card }}</div>
                         <div class="cell">{{ data_row.Investment }}</div>
                         <div class="cell">{{ data_row.Expenses }}</div>

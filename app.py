@@ -33,7 +33,7 @@ async def add_data(
     amount: int = Form(...),
     description: str = Form(...)
 ):
-    addData.insertData(config_data, year, month, category, amount, description)
+    addData.insertData(config_data, year+1, month, category, amount, description)
     return templates.TemplateResponse("add_data.html", {"request": request})
 
 # if __name__ == "__main__":
