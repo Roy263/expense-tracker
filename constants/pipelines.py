@@ -18,6 +18,8 @@ def getQuery(year):
                 "Cash": {"$sum": {"$sum": "$Cash.amount"}},
                 "Home": {"$sum": {"$sum": "$Home.amount"}},
                 "Desires": {"$sum": {"$sum": "$Desires.amount"}},
+                "Travel": {"$sum": {"$sum": "$Travel.amount"}},
+                "Food": {"$sum": {"$sum": "$Food.amount"}},
                 "Credit_Card": {"$sum": {"$sum": "$Credit_Card.amount"}},
                 "Investment": {"$sum": {"$sum": "$Investment.amount"}},
             }
@@ -32,6 +34,8 @@ def getQuery(year):
                 "Cash": 1,
                 "Home": 1,
                 "Desires": 1,
+                "Travel": 1,
+                "Food": 1,
                 "Credit_Card": 1,
                 "Investment": 1,
                 "created_at": "$_id.created_at"

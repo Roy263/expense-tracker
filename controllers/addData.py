@@ -25,7 +25,7 @@ def insertData(config_data, year, month, category, amount, desc):
     else:
         # Create a new document with the given year, month, and category data
         new_document = {
-            "year": year+1,
+            "year": year,
             "month": month,
             f"{category}": [{"amount": amount, "description": desc}],
             "created_at": current_datetime

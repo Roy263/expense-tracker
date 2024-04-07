@@ -12,23 +12,23 @@ def formatData(monthlyData):
 
         for month_data in data:
             income = int(month_data['Income'])
-            # Calculate the sum of expenses for each month
-            expenses_sum = sum([month_data['Tax'], month_data['Cash'], month_data['Home'], month_data['Desires'], month_data['Credit_Card']])
+            expenses_sum = sum(month_data.get(key, 0) for key in ['Tax', 'Cash', 'Home', 'Desires', 'Travel', 'Food', 'Credit_Card'])
+            
             month_data['Expenses'] = expenses_sum
             month_data['Total_Save'] = int(income - expenses_sum - month_data['Investment'])
             saving_percentage = month_data['Total_Save'] * 100 / income if income > 0 else 0
             month_data['Saving_Percentage'] = "{:.2f}".format(saving_percentage)
 
-            for key in ['Income', 'Tax', 'Cash', 'Home', 'Desires', 'Credit_Card', 'Investment', 'Expenses', 'Total_Save']:
+            for key in ['Income', 'Tax', 'Cash', 'Home', 'Desires', 'Travel', 'Food', 'Credit_Card', 'Investment', 'Expenses', 'Total_Save']:
                 total_by_column[key] += int(month_data.get(key, 0))
-
+                      
         total_data = {'month': 'Total'}
         for key, value in total_by_column.items():
             total_data[key] = value
 
         percent_data = {'month': '% income'}
         for key, value in total_by_column.items():
-            income_percentage = value * 100 / total_by_column['Income']
+            income_percentage = (value * 100 / total_by_column['Income']) if total_by_column['Income'] != 0 else 0
             percent_data[key] = "{:.2f}".format(income_percentage)
 
         formatted_data[year].extend(data)
