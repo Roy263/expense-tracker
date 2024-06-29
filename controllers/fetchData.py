@@ -11,8 +11,9 @@ def formatData(monthlyData):
         total_by_column = defaultdict(int)
 
         for month_data in data:
+            print(month_data['transactions'])
             income = int(month_data['Income'])
-            expenses_sum = sum(month_data.get(key, 0) for key in ['Tax', 'Cash', 'Home', 'Desires', 'Travel', 'Food', 'Credit_Card'])
+            expenses_sum = sum(month_data.get(key, 0) for key in ['Cash', 'Home', 'Desires', 'Travel', 'Food', 'Credit_Card'])
             
             month_data['Expenses'] = expenses_sum
             month_data['Total_Save'] = int(income - expenses_sum - month_data['Investment'])
@@ -55,8 +56,7 @@ def getData(config_data):
         # Execute aggregation pipeline
         monthly_data = list(collection.aggregate(pipelines.getQuery(year)))
         sorted_data = sorted(monthly_data, key=lambda x: x['created_at'],reverse=True)
-        # print(sorted_data)
         monthly_data_by_year[year] = sorted_data
-    
+ 
     data=formatData(monthly_data_by_year)
     return data
